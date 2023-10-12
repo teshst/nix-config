@@ -3,7 +3,7 @@
 {
 
   imports = [
-
+    ./editors/emacs
   ];
 
   programs.git = {

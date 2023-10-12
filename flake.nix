@@ -40,7 +40,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, nix-doom-emacs, nixos-hardware, disko, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, hyprland, nix-doom-emacs, emacs-overlay, nixos-hardware, disko, ... }@inputs:
   let
     vars = {
      user = "seth";
@@ -50,7 +50,7 @@
     nixosConfigurations = (                                               # NixOS Configurations
       import ./hosts {
         inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager hyprland nix-doom-emacs nixos-hardware disko vars;   # Inherit inputs
+        inherit inputs nixpkgs home-manager hyprland nix-doom-emacs emacs-overlay nixos-hardware disko vars;   # Inherit inputs
       }
     );
   };
