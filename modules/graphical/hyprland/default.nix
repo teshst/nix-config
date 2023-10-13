@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 
 {
   
@@ -21,7 +21,7 @@
   security.polkit.enable = true;
   
   services.udisks2.enable = true;
-  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.${vars.user}.enableGnomeKeyring = true;
 
   services.xserver.enable = true;
   services.xserver.displayManager = {
