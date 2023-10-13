@@ -4,7 +4,10 @@
 
   imports = [
     ./editors/emacs
+    ../../modules/graphical/hyprland/home.nix
   ];
+  
+  xsession.enable = true;
 
   programs.git = {
     enable = true;

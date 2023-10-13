@@ -16,6 +16,8 @@
    ../../hardware/efi.nix
    ../../hardware/bluetooth.nix
    ../../hardware/sound.nix
+
+   ../../modules/graphical/hyprland
  ];
 
  networking = {

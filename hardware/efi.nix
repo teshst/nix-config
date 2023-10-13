@@ -5,7 +5,10 @@
       enable = true;
       configurationLimit = 15;
     };
-    timeout = lib.mkDefault 2;
+    timeout = 2;
   };
+  boot.initrd.systemd.enable = true;
+  boot.plymouth.enable = true;
+  boot.kernelParams = [ "quiet" ];
   console.earlySetup = true;
 }
