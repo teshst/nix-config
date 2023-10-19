@@ -12,6 +12,7 @@ with lib.my;
           (findFirst pathExists (toString ../.) [
             "/mnt/etc/nix-config"
             "/etc/nix-config"
+            "~/nix-config"
           ]));
       binDir     = mkOpt path "${config.dotfiles.dir}/bin";
       configDir  = mkOpt path "${config.dotfiles.dir}/config";
@@ -53,6 +54,7 @@ with lib.my;
     # Install user packages to /etc/profiles instead. Necessary for
     # nixos-rebuild build-vm to work.
     home-manager = {
+      useGlobalPkgs = true;
       useUserPackages = true;
 
       # I only need a subset of home-manager's capabilities. That is, access to

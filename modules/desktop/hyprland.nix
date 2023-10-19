@@ -1,15 +1,20 @@
-{ options, config, lib, pkgs, hyprland, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
 let cfg = config.modules.desktop.hyprland;
     configDir = config.dotfiles.configDir;
 in {
+  imports =  [
+    inputs.hyprland.homeManagerModules.default
+  ];
+
   options.modules.desktop.hyprland = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
+
 
     xdg.portal = {
       enable = true;
@@ -76,7 +81,6 @@ in {
       systemdIntegration = true;
       extraConfig =
       ''
-
       monitor=eDP-2,1920x1080@60,0x0,1
       monitor=,highrr,auto,1
 
@@ -92,26 +96,26 @@ in {
 
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
 
-      $mod = SUPER
+        $mod = SUPER
 
-      input {
-        numlock_by_default=true
-        follow_mouse=2;
-        touchpad {
-          natural_scroll=false
-          middle_button_emulation=true
-          disable_while_typing=true
-          tap-to-click=true
+        input {
+          numlock_by_default=true
+          follow_mouse=2;
+          touchpad {
+            natural_scroll=false
+            middle_button_emulation=true
+            disable_while_typing=true
+            tap-to-click=true
+          }
         }
-      }
 
-      gestures {
-        workspace_swipe=true
-        workspace_swipe_fingers=3
-        workspace_swipe_distance=100
-      }
+        gestures {
+          workspace_swipe=true
+          workspace_swipe_fingers=3
+          workspace_swipe_distance=100
+        }
 
-      animations {
+        animations {
         enabled=true
         bezier = myBezier,0.1,0.7,0.1,1.05
         animation=fade,1,7,default
@@ -238,6 +242,7 @@ in {
         bind =,XF86AudioRaiseVolume,exec,pulsemixer --change-volume +5
         bind =,XF86AudioLowerVolume,exec,pulsemixer --change-volume -5
         bind =,XF86AudioMute,exec,pulsemixer --toggle-mute
+
         '';
     };
 
