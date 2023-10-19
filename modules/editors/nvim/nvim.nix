@@ -25,15 +25,19 @@ in {
         orgmode
         markdown-preview-nvim
       ];
-      extraConfig = ''
-        lua << EOF
-        ${builtins.readFile ./lua/init.lua}
-      '';
     };
 
     environment.shellAliases = {
       vim = "nvim";
       v   = "nvim";
     };
+
+    home.configFile = {
+      "nvim" = {
+        source = "${configDir}/nvim";
+        recursive = true;
+      };
+    };
+
   };
 }

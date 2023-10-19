@@ -12,21 +12,14 @@
 
   inputs = {
 
+
+    #Core
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";                     # Default Stable Nix Packages
 
     home-manager = {                                                      # User Package Management
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixos-hardware.url = "github:teshst/nixos-hardware";
-
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
     hyprland = {                                                          # Official Hyprland flake
       url = "github:hyprwm/Hyprland";                                   # Add "hyprland.nixosModules.default" to the host modules
@@ -38,12 +31,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #stylix.url = "github:danth/stylix";
-
-    # base16-schemes = {
-    #   url = "github:tinted-theming/base16-schemes";
-    #   flake = false;
-    # };
+    # Extras
+    emacs-overlay.url  = "github:nix-community/emacs-overlay";
+    nixos-hardware.url = "github:teshst/nixos-hardware";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
