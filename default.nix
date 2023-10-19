@@ -5,7 +5,7 @@ with lib.my;
 {
   imports =
     # I use home-manager to deploy files to $HOME; little else
-    [ inputs.home-manager.nixosModules.home-manager inputs.nix-doom-emacs.hmModule inputs.hyprland.homeManagerModules.default ]
+    [ inputs.home-manager.nixosModules.home-manager  inputs.nix-doom-emacs.hmModule inputs.hyprland.homeManagerModules.default ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
 

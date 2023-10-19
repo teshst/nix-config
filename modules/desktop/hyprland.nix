@@ -1,4 +1,4 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, hyprland, ... }:
 
 with lib;
 with lib.my;
@@ -18,6 +18,7 @@ in {
       polkit_gnome
       dunst
       libnotify
+      swaylock-effects
     ];
 
     xdg.portal = {
@@ -52,13 +53,13 @@ in {
     security.polkit.enable = true;
 
     services.udisks2.enable = true;
-    security.pam.services.${config.user}.enableGnomeKeyring = true;
+    security.pam.services.enableGnomeKeyring = true;
 
     services.udiskie.enable = true;
     services.poweralertd.enable = true;
     services.gnome-keyring.enable = true;
 
-    systemd.user.services."dunst" = {
+    systemd.user.services.dunst = {
       enable = true;
       description = "";
       wantedBy = [ "default.target" ];
