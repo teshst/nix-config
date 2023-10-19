@@ -46,7 +46,7 @@
     # };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, nix-doom-emacs, hyprland, ... }@inputs:
   let
    inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -64,6 +64,13 @@
     (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
   in
   {
+
+
+    modules = [
+      nix-doom-emacs.hmModule
+      hyprland.homeManagerModules.default
+    ];
+
     lib = lib.my;
 
     overlay =
