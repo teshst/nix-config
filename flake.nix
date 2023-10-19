@@ -38,12 +38,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix.url = "github:danth/stylix";
+    #stylix.url = "github:danth/stylix";
 
-    base16-schemes = {
-      url = "github:tinted-theming/base16-schemes";
-      flake = false;
-    };
+    # base16-schemes = {
+    #   url = "github:tinted-theming/base16-schemes";
+    #   flake = false;
+    # };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
