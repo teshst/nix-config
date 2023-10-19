@@ -4,7 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop;
 in {
-  config = mkIf config.modules.desktop.hyprland.enable {
+  config = mkIf config.services.xserver.enable {
     assertions = [
       {
         assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
@@ -38,6 +38,9 @@ in {
         symbola
       ];
     };
+
+    ## Apps/Services
+    services.xserver.displayManager.lightdm.greeters.mini.user = config.user.name;
 
     # Try really hard to get QT to respect my GTK theme.
     env.GTK_DATA_PREFIX = [ "${config.system.path}" ];
