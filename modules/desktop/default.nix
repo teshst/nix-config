@@ -4,7 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop;
 in {
-  config = mkIf config.services.xserver.enable {
+  config = mkIf config.modules.desktop.hyprland.enable {
     assertions = [
       {
         assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
@@ -27,14 +27,6 @@ in {
       feh       # image viewer
       qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
       libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
-      wl-clipboard
-      wl-clip-persist
-      cliphist
-      dunst
-      libnotify
-      pulsemixer
-      polkit_gnome
-      swaylock-effects
     ];
 
     fonts = {
