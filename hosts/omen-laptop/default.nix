@@ -1,28 +1,64 @@
-{pkgs, inputs, nixos-hardware, disko, vars, ... }:
+{ inputs, ... }:
 
 {
 
  imports = [
+   ../home.nix
    ./hardware-configuration.nix
 
-   disko.nixosModules.disko
+   inputs.disko.nixosModules.disko
    ./disko-config.nix
    {
      _module.args.disks = [ "/dev/nvme0n1" ];
    }
 
-   nixos-hardware.nixosModules.omen-16-n0005ne
+   inputs.nixos-hardware.nixosModules.omen-16-n0005ne
 
-   ../../hardware/efi.nix
-   ../../hardware/bluetooth.nix
-   ../../hardware/sound.nix
-
-   ../../modules/graphical/hyprland
  ];
 
- networking = {
-  hostName = "omen-laptop";
-  networkmanager.enable = true;
+ modules = {
+   desktop = {
+     hyprland.enable = true;
+     apps = {
+       rofi.enable = true;
+     };
+   };
+   browsers = {
+     default = "firefox";
+     firefox.enable = true;
+   };
+   gaming = {
+     #steam.enable = true;
+   };
+   media = {
+    documents.enable = true;
+   };
+   term = {
+     default = "kitty";
+     kitty.enable = true;
+   };
+   editors = {
+     default = "nvim";
+     emacs.enable = true;
+     nvim.enable  = true;
+   };
+   shell = {
+     zsh.enable = true;
+     git.enable = true;
+     gnupg.enable = true;
+   };
+   services = {
+     ssh.enable  = true;
+   };
+   theme.enable = true;
  };
+
+ ## Local config
+ programs.ssh.startAgent = true;
+ services.openssh.startWhenNeeded = true;
+
+ networking.networkmanager.enable = true;
+
+ time.timeZone = "America/Boise";
 
 }

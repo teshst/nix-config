@@ -3,12 +3,10 @@
 {
 
   imports = [
-    ./editors/emacs
+    ../../modules/core/home.nix
     ../../modules/graphical/hyprland/home.nix
   ];
   
-  xsession.enable = true;
-
   programs.git = {
     enable = true;
     userEmail = "teshpersonal@gmail.com";
