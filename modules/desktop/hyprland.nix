@@ -10,16 +10,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      wl-clipboard
-      wl-clip-persist
-      cliphist
-      pulsemixer
-      polkit_gnome
-      dunst
-      libnotify
-      swaylock-effects
-    ];
 
     xdg.portal = {
       enable = true;

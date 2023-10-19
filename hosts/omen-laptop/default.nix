@@ -50,6 +50,7 @@
    services = {
      ssh.enable  = true;
    };
+   theme.active = "hex";
  };
 
  ## Local config
