@@ -48,7 +48,7 @@ in {
     }
 
     # Desktop (X11) theming
-    (mkIf config.desktop.hyprland.enable {
+    (mkIf config.services.xserver.enable {
       user.packages = with pkgs; [
         adw-gtk3
         gnome.adwaita-icon-theme
