@@ -1,4 +1,4 @@
-fpath+=( $ZDOTDIR/completions )
+historySubstringSearch.enablefpath+=( $ZDOTDIR/completions )
 
 # Don't offer history completion; we have fzf, C-r, and
 # zsh-history-substring-search for that.

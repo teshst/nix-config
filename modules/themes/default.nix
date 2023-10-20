@@ -113,6 +113,5 @@ in {
         monospace = [ cfg.fonts.mono.name ];
       };
     }
-
   ]);
 }
