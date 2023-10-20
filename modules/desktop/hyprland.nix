@@ -93,7 +93,6 @@ in {
       QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
     };
 
-
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;

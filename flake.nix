@@ -14,7 +14,6 @@
 
   inputs = {
 
-
     #Core
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";                     # Default Stable Nix Packages
 
