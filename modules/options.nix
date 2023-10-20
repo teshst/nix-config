@@ -1,4 +1,4 @@
-{ config, options, lib, home-manager, ... }:
+{ config, options, lib, home-manager, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -18,6 +18,8 @@ with lib.my;
       modulesDir = mkOpt path "${config.dotfiles.dir}/modules";
       themesDir  = mkOpt path "${config.dotfiles.modulesDir}/themes";
     };
+
+    hm = mkOpt' attrs {} "Access to home manager";
 
     home = {
       file       = mkOpt' attrs {} "Files to place directly in $HOME";
@@ -64,7 +66,11 @@ with lib.my;
       #   home.file        ->  home-manager.users.hlissner.home.file
       #   home.configFile  ->  home-manager.users.hlissner.home.xdg.configFile
       #   home.dataFile    ->  home-manager.users.hlissner.home.xdg.dataFile
-      users.${config.user.name} = {
+      users.${config.user.name} = mkAliasDefininitions options.hm {
+        imports = [
+          inputs.hyprland.homeManagerModules.default
+        ];
+
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will

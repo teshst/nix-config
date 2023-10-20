@@ -33,8 +33,6 @@ in {
       cursorTheme = mkOpt str "";
     };
 
-    onReload = mkOpt (attrsOf lines) {};
-
     fonts = {
       # TODO Use submodules
       mono = {
@@ -80,70 +78,8 @@ in {
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
-    # Read xresources files in ~/.config/xtheme/* to allow modular configuration
-    # of Xresources.
-    (let xrdb = ''cat "$XDG_CONFIG_HOME"/xtheme/* | ${pkgs.xorg.xrdb}/bin/xrdb -load'';
-     in {
-       home.configFile."xtheme.init" = {
-         text = xrdb;
-         executable = true;
-       };
-       modules.theme.onReload.xtheme = xrdb;
-     })
-
-    (mkIf config.modules.desktop.bspwm.enable {
-      home.configFile."bspwm/rc.d/05-init" = {
-        text = "$XDG_CONFIG_HOME/xtheme.init";
-        executable = true;
-      };
-    })
-
     {
       home.configFile = {
-        "xtheme/00-init".text = with cfg.colors; ''
-          #define bg   ${types.bg}
-          #define fg   ${types.fg}
-          #define blk  ${black}
-          #define red  ${red}
-          #define grn  ${green}
-          #define ylw  ${yellow}
-          #define blu  ${blue}
-          #define mag  ${magenta}
-          #define cyn  ${cyan}
-          #define wht  ${white}
-          #define bblk ${grey}
-          #define bred ${brightred}
-          #define bgrn ${brightgreen}
-          #define bylw ${brightyellow}
-          #define bblu ${brightblue}
-          #define bmag ${brightmagenta}
-          #define bcyn ${brightcyan}
-          #define bwht ${silver}
-        '';
-        "xtheme/05-colors".text = ''
-          *.foreground: fg
-          *.background: bg
-          *.color0:  blk
-          *.color1:  red
-          *.color2:  grn
-          *.color3:  ylw
-          *.color4:  blu
-          *.color5:  mag
-          *.color6:  cyn
-          *.color7:  wht
-          *.color8:  bblk
-          *.color9:  bred
-          *.color10: bgrn
-          *.color11: bylw
-          *.color12: bblu
-          *.color13: bmag
-          *.color14: bcyn
-          *.color15: bwht
-        '';
-        "xtheme/05-fonts".text = with cfg.fonts.mono; ''
-          *.font: xft:${name}:pixelsize=${toString(size)}
-          Emacs.font: ${name}:pixelsize=${toString(size)}
-        '';
         # GTK
         "gtk-3.0/settings.ini".text = ''
           [Settings]
@@ -166,12 +102,6 @@ in {
           ${optionalString (cfg.gtk.iconTheme != "")
             ''gtk-icon-theme-name="${cfg.gtk.iconTheme}"''}
           gtk-font-name="Sans ${toString(cfg.fonts.sans.size)}"
-        '';
-        # QT4/5 global theme
-        "Trolltech.conf".text = ''
-          [Qt]
-          ${optionalString (cfg.gtk.theme != "")
-            ''style=${cfg.gtk.theme}''}
         '';
       };
 
@@ -205,23 +135,5 @@ in {
     (mkIf (cfg.loginWallpaper != null) {
       services.xserver.displayManager.lightdm.background = cfg.loginWallpaper;
     })
-
-    (mkIf (cfg.onReload != {})
-      (let reloadTheme =
-             with pkgs; (writeScriptBin "reloadTheme" ''
-               #!${stdenv.shell}
-               echo "Reloading current theme: ${cfg.active}"
-               ${concatStringsSep "\n"
-                 (mapAttrsToList (name: script: ''
-                   echo "[${name}]"
-                   ${script}
-                 '') cfg.onReload)}
-             '');
-       in {
-         user.packages = [ reloadTheme ];
-         system.userActivationScripts.reloadTheme = ''
-           [ -z "$NORELOAD" ] && ${reloadTheme}/bin/reloadTheme
-         '';
-       }))
   ]);
 }

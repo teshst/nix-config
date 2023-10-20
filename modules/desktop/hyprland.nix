@@ -5,8 +5,8 @@ with lib.my;
 let cfg = config.modules.desktop.hyprland;
     configDir = config.dotfiles.configDir;
 in {
+
   imports =  [
-    inputs.hyprland.homeManagerModules.default
   ];
 
   options.modules.desktop.hyprland = {
@@ -23,6 +23,7 @@ in {
       libnotify
       pulsemixer
       polkit_gnome
+      swaylock-effects
     ];
 
     services = {
@@ -43,7 +44,7 @@ in {
       wlr.enable = true;
     };
 
-    programs.swaylock = {
+    hm.programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
@@ -65,13 +66,12 @@ in {
 
     security.pam.services.swaylock = {};
     security.polkit.enable = true;
+    security.pam.services.${config.user.name}.enableGnomeKeyring = true;
 
     services.udisks2.enable = true;
-    security.pam.services.enableGnomeKeyring = true;
-
-    services.udiskie.enable = true;
-    services.poweralertd.enable = true;
-    services.gnome-keyring.enable = true;
+    hm.services.udiskie.enable = true;
+    hm.services.poweralertd.enable = true;
+    services.gnome.gnome-keyring.enable = true;
 
     systemd.user.services."dunst" = {
       enable = true;
@@ -82,7 +82,7 @@ in {
       serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
     };
 
-    systemd.user.sessionVariables = {
+    hm.systemd.user.sessionVariables = {
       GDK_BACKEND="wayland";
       QT_QPA_PLATFORM="wayland";
       SDL_VIDEODRIVER="wayland";
@@ -93,7 +93,7 @@ in {
       QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
     };
 
-    wayland.windowManager.hyprland = {
+    hm.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
       recommendedEnvironment = true;

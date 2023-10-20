@@ -82,10 +82,6 @@ in {
 
       # Other dotfiles
       home.configFile = with config.modules; mkMerge [
-        {
-          # Sourced from sessionCommands in modules/themes/default.nix
-          "xtheme/90-theme".source = ./config/Xresources;
-        }
         (mkIf desktop.apps.rofi.enable {
           "rofi/theme" = { source = ./config/rofi; recursive = true; };
         })

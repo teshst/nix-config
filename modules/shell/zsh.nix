@@ -44,7 +44,7 @@ in {
       tldr
     ];
 
-    programs.zsh = {
+    hm.programs.zsh = {
       enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
