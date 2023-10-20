@@ -61,7 +61,7 @@ in {
         paper-icon-theme # for rofi
       ];
       fonts = {
-        fonts = with pkgs; [
+        packages = with pkgs; [
           fira-code
           fira-code-symbols
           open-sans
@@ -89,7 +89,7 @@ in {
           "dunst/dunstrc".text = import ./config/dunstrc cfg;
           "Dracula-purple-solid-kvantum" = {
             recursive = true;
-            source = "${pkgs.unstable.dracula-theme}/share/themes/Dracula/kde/kvantum/Dracula-purple-solid";
+            source = "${pkgs.dracula-theme}/share/themes/Dracula/kde/kvantum/Dracula-purple-solid";
             target = "Kvantum/Dracula-purple-solid";
           };
           "kvantum.kvconfig" = {

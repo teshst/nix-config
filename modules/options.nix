@@ -19,12 +19,14 @@ with lib.my;
       themesDir  = mkOpt path "${config.dotfiles.modulesDir}/themes";
     };
 
-    hm = mkOpt' attrs {} "Access to home manager";
-
     home = {
       file       = mkOpt' attrs {} "Files to place directly in $HOME";
       configFile = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
       dataFile   = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
+      programs = mkOpt' attrs {} "Access to home manager programs";
+      services =  mkOpt' attrs {} "Access to home manager services";
+      systemd =  mkOpt' attrs {} "Access to home manager systemd";
+      wayland =  mkOpt' attrs {} "Access to home manager wayland";
     };
 
     env = mkOption {
@@ -63,10 +65,15 @@ with lib.my;
       # files easily to my $HOME, but 'home-manager.users.hlissner.home.file.*'
       # is much too long and harder to maintain, so I've made aliases in:
       #
-      #   home.file        ->  home-manager.users.hlissner.home.file
-      #   home.configFile  ->  home-manager.users.hlissner.home.xdg.configFile
-      #   home.dataFile    ->  home-manager.users.hlissner.home.xdg.dataFile
-      users.${config.user.name} = mkAliasDefininitions options.hm {
+      #   home.file        ->  home-manager.users.seth.home.file
+      #   home.configFile  ->  home-manager.users.seth.home.xdg.configFile
+      #   home.dataFile    ->  home-manager.users.seth.home.xdg.dataFile
+      users.${config.user.name} =  {
+        programs = mkAliasDefinitions options.home.programs;
+        services = mkAliasDefinitions options.home.services;
+        systemd = mkAliasDefinitions options.home.systemd;
+        wayland = mkAliasDefinitions options.home.wayland;
+
         imports = [
           inputs.hyprland.homeManagerModules.default
         ];

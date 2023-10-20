@@ -22,20 +22,17 @@
      apps = {
        rofi.enable = true;
      };
-   };
-   browsers = {
-     default = "firefox";
-     firefox.enable = true;
-   };
-   gaming = {
-     #steam.enable = true;
-   };
-   media = {
-    documents.enable = true;
-   };
-   term = {
-     default = "kitty";
-     kitty.enable = true;
+     browsers = {
+       default = "firefox";
+       firefox.enable = true;
+     };
+     media = {
+       documents.enable = true;
+     };
+     term = {
+       default = "kitty";
+       kitty.enable = true;
+     };
    };
    editors = {
      default = "nvim";
@@ -51,7 +48,7 @@
    services = {
      ssh.enable  = true;
    };
-   #theme.active = "hex";
+   theme.active = "hex";
  };
 
  ## Local config

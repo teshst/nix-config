@@ -35,7 +35,7 @@ in {
       zsh
       nix-zsh-completions
       bat
-      exa
+      eza
       fasd
       fd
       fzf
@@ -44,19 +44,24 @@ in {
       tldr
     ];
 
-    hm.programs.zsh = {
+    # FIXME NixOS (need better solution)
+    programs.zsh = {
+      enable = true;
+      # I init completion myself, because enableGlobalCompInit initializes it
+      # too soon, which means commands initialized later in my config won't get
+      # completion, and running compinit twice is slow.
+      enableGlobalCompInit = false;
+      promptInit = "";
+    };
+
+    home.programs.zsh = {
       enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
       autocd = true;
-      dotDir = "${ZDOTDIR}";
-      # I init completion myself, because enableGlobalCompInit initializes it
-      # too soon, which means commands initialized later in my config won't get
-      # completion, and running compinit twice is slow.
-      enableGlobalCompInit = false;
-      promptInit = "";
+      dotDir = "$ZDOTDIR";
       antidote = {
         enable = true;
         plugins = [

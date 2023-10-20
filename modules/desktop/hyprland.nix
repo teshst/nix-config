@@ -44,7 +44,7 @@ in {
       wlr.enable = true;
     };
 
-    hm.programs.swaylock = {
+    home.programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
@@ -69,8 +69,8 @@ in {
     security.pam.services.${config.user.name}.enableGnomeKeyring = true;
 
     services.udisks2.enable = true;
-    hm.services.udiskie.enable = true;
-    hm.services.poweralertd.enable = true;
+    home.services.udiskie.enable = true;
+    home.services.poweralertd.enable = true;
     services.gnome.gnome-keyring.enable = true;
 
     systemd.user.services."dunst" = {
@@ -82,7 +82,7 @@ in {
       serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
     };
 
-    hm.systemd.user.sessionVariables = {
+    home.systemd.user.sessionVariables = {
       GDK_BACKEND="wayland";
       QT_QPA_PLATFORM="wayland";
       SDL_VIDEODRIVER="wayland";
@@ -93,7 +93,7 @@ in {
       QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
     };
 
-    hm.wayland.windowManager.hyprland = {
+    home.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
       recommendedEnvironment = true;
