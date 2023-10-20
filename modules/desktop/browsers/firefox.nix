@@ -20,6 +20,9 @@ in {
     extraConfig = mkOpt' lines "" ''
       Extra lines to add to <filename>user.js</filename>
     '';
+
+    userChrome  = mkOpt' lines "" "CSS Styles for Firefox's interface";
+    userContent = mkOpt' lines "" "Global CSS Styles for websites";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -184,6 +187,41 @@ in {
         "extensions.formautofill.creditCards.available" = false;
         "extensions.formautofill.creditCards.enabled" = false;
         "extensions.formautofill.heuristics.enabled" = false;
+      };
+
+      # Use a stable profile name so we can target it in themes
+      home.file = let cfgPath = ".mozilla/firefox"; in {
+        "${cfgPath}/profiles.ini".text = ''
+          [Profile0]
+          Name=default
+          IsRelative=1
+          Path=${cfg.profileName}.default
+          Default=1
+
+          [General]
+          StartWithLastProfile=1
+          Version=2
+        '';
+
+        "${cfgPath}/${cfg.profileName}.default/user.js" =
+          mkIf (cfg.settings != {} || cfg.extraConfig != "") {
+            text = ''
+              ${concatStrings (mapAttrsToList (name: value: ''
+                user_pref("${name}", ${builtins.toJSON value});
+              '') cfg.settings)}
+              ${cfg.extraConfig}
+            '';
+          };
+
+        "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css" =
+          mkIf (cfg.userChrome != "") {
+            text = cfg.userChrome;
+          };
+
+        "${cfgPath}/${cfg.profileName}.default/chrome/userContent.css" =
+          mkIf (cfg.userContent != "") {
+            text = cfg.userContent;
+          };
       };
     }
   ]);

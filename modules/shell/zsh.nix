@@ -26,14 +26,9 @@ in {
   config = mkIf cfg.enable {
     users.defaultUserShell = pkgs.zsh;
 
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      # I init completion myself, because enableGlobalCompInit initializes it
-      # too soon, which means commands initialized later in my config won't get
-      # completion, and running compinit twice is slow.
-      enableGlobalCompInit = false;
-      promptInit = "";
+    env = {
+      ZDOTDIR   = "$XDG_CONFIG_HOME/zsh";
+      ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
     };
 
     user.packages = with pkgs; [
@@ -49,10 +44,28 @@ in {
       tldr
     ];
 
-    env = {
-      ZDOTDIR   = "$XDG_CONFIG_HOME/zsh";
-      ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
-      ZGEN_DIR  = "$XDG_DATA_HOME/zgenom";
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+      enableVteIntegration = true;
+      historySubstringSearch.enable = true;
+      autocd = true;
+      dotDir = "${ZDOTDIR}";
+      # I init completion myself, because enableGlobalCompInit initializes it
+      # too soon, which means commands initialized later in my config won't get
+      # completion, and running compinit twice is slow.
+      enableGlobalCompInit = false;
+      promptInit = "";
+      antidote = {
+        enable = true;
+        plugins = [
+          "junegunn/fzf"
+          "jeffreytse/zsh-vi-mode"
+          "romkatv/powerlevel10k"
+          "hlissner/zsh-autopair"
+        ];
+      };
     };
 
     home.configFile = {
@@ -81,7 +94,6 @@ in {
 
     system.userActivationScripts.cleanupZgen = ''
       rm -rf $ZSH_CACHE
-      rm -fv $ZGEN_DIR/init.zsh{,.zwc}
     '';
   };
 }

@@ -1,3 +1,5 @@
+# modules/themes/alucard/default.nix --- a regal dracula-inspired theme
+
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -11,9 +13,9 @@ in {
         theme = {
           wallpaper = mkDefault ./config/wallpaper.png;
           gtk = {
-            theme = "adw-gtk3";
-            iconTheme = "Adwaita";
-            cursorTheme = "Adwaita";
+            theme = "Dracula";
+            iconTheme = "Paper";
+            cursorTheme = "Paper";
           };
           fonts = {
             sans.name = "Fira Sans";
@@ -44,14 +46,19 @@ in {
         };
 
         shell.zsh.rcFiles  = [ ./config/zsh/prompt.zsh ];
+        desktop.browsers = {
+          firefox.userChrome = concatMapStringsSep "\n" readFile [
+            ./config/firefox/userChrome.css
+          ];
+        };
       };
     }
 
     # Desktop (X11) theming
     (mkIf config.services.xserver.enable {
       user.packages = with pkgs; [
-        adw-gtk3
-        gnome.adwaita-icon-theme
+        dracula-theme
+        paper-icon-theme # for rofi
       ];
       fonts = {
         fonts = with pkgs; [
@@ -64,13 +71,35 @@ in {
         ];
       };
 
+
+      # Login screen theme
+      services.xserver.displayManager.lightdm.greeters.mini.extraConfig = ''
+        text-color = "${cfg.colors.magenta}"
+        password-background-color = "${cfg.colors.black}"
+        window-color = "${cfg.colors.types.border}"
+        border-color = "${cfg.colors.types.border}"
+      '';
+
       # Other dotfiles
       home.configFile = with config.modules; mkMerge [
+        {
+          # Sourced from sessionCommands in modules/themes/default.nix
+          "xtheme/90-theme".source = ./config/Xresources;
+        }
         (mkIf desktop.apps.rofi.enable {
           "rofi/theme" = { source = ./config/rofi; recursive = true; };
         })
-        (mkIf (desktop.hyprland.enable) {
+        (mkIf (desktop.bspwm.enable || desktop.stumpwm.enable) {
           "dunst/dunstrc".text = import ./config/dunstrc cfg;
+          "Dracula-purple-solid-kvantum" = {
+            recursive = true;
+            source = "${pkgs.unstable.dracula-theme}/share/themes/Dracula/kde/kvantum/Dracula-purple-solid";
+            target = "Kvantum/Dracula-purple-solid";
+          };
+          "kvantum.kvconfig" = {
+            text = "theme=Dracula-purple-solid";
+            target = "Kvantum/kvantum.kvconfig";
+          };
         })
       ];
     })

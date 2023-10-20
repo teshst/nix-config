@@ -129,24 +129,6 @@ in {
         '';
         executable = true;
       };
-      ".config/hypr/script/portallaunch.sh" = {
-        text = ''
-        #!/bin/bash
-        sleep 1
-        killall -e xdg-desktop-portal-hyprland
-        killall -e xdg-desktop-portal-wlr
-        killall xdg-desktop-portal
-        /usr/lib/xdg-desktop-portal-hyprland &
-        sleep 2
-        /usr/lib/xdg-desktop-portal &          '';
-        executable = true;
-      };
     };
-
-    nix.settings = {
-      substituters = ["https://hyprland.cachix.org"];	# Install cached version so rebuild should not be required
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-    };
-
   };
 }
