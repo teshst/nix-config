@@ -49,7 +49,6 @@
      overlays = extraOverlays ++ (lib.attrValues self.overlays);
    };
    pkgs  = mkPkgs nixpkgs [ self.overlay ];
-   pkgs' = mkPkgs nixpkgs [];
 
    lib = nixpkgs.lib.extend
     (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
@@ -59,9 +58,9 @@
     lib = lib.my;
 
     overlay =
-      final: prev: {
-        my = self.packages."${system}";
-      };
+        final: prev: {
+          my = self.packages."${system}";
+        };
 
     overlays =
       mapModules ./overlays import;
@@ -70,5 +69,6 @@
       { dotfiles = import ./.; } // mapModulesRec ./modules import;
 
     nixosConfigurations =
-      mapHosts ./hosts {};  };
+      mapHosts ./hosts {};
+  };
 }

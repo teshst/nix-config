@@ -51,7 +51,7 @@
    services = {
      ssh.enable  = true;
    };
-   theme.active = "hex";
+   #theme.active = "hex";
  };
 
  ## Local config

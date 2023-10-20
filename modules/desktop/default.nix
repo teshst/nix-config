@@ -1,139 +1,63 @@
-# Theme modules are a special beast. They're the only modules that are deeply
-# intertwined with others, and are solely responsible for aesthetics. Disabling
-# a theme module should never leave a system non-functional.
-
-{ options, config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
-let cfg = config.modules.theme;
+let cfg = config.modules.desktop;
 in {
-  options.modules.theme = with types; {
-    active = mkOption {
-      type = nullOr str;
-      default = null;
-      apply = v: let theme = builtins.getEnv "THEME"; in
-                 if theme != "" then theme else v;
-      description = ''
-        Name of the theme to enable. Can be overridden by the THEME environment
-        variable. Themes can also be hot-swapped with 'hey theme $THEME'.
-      '';
-    };
+  config = mkIf config.services.xserver.enable {
+    assertions = [
+      {
+        assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
+        message = "Can't have more than one desktop environment enabled at a time";
+      }
+      {
+        assertion =
+          let srv = config.services;
+          in srv.xserver.enable ||
+             srv.hyprland.enable ||
+             !(anyAttrs
+               (n: v: isAttrs v &&
+                      anyAttrs (n: v: isAttrs v && v.enable))
+               cfg);
+        message = "Can't enable a desktop app without a desktop environment";
+      }
+    ];
 
-    wallpaper = mkOpt (either path null) null;
-
-    loginWallpaper = mkOpt (either path null)
-      (if cfg.wallpaper != null
-       then toFilteredImage cfg.wallpaper "-gaussian-blur 0x2 -modulate 70 -level 5%"
-       else null);
-
-    gtk = {
-      theme = mkOpt str "";
-      iconTheme = mkOpt str "";
-      cursorTheme = mkOpt str "";
-    };
+    user.packages = with pkgs; [
+      feh       # image viewer
+      qgnomeplatform        # QPlatformTheme for a better Qt application inclusion in GNOME
+      libsForQt5.qtstyleplugin-kvantum # SVG-based Qt5 theme engine plus a config tool and extra theme
+    ];
 
     fonts = {
-      # TODO Use submodules
-      mono = {
-        name = mkOpt str "Monospace";
-        size = mkOpt int 12;
-      };
-      sans = {
-        name = mkOpt str "Sans";
-        size = mkOpt int 10;
-      };
+      fontDir.enable = true;
+      enableGhostscriptFonts = true;
+      fonts = with pkgs; [
+        ubuntu_font_family
+        dejavu_fonts
+        symbola
+      ];
     };
 
-    colors = {
-      black         = mkOpt str "#000000"; # 0
-      red           = mkOpt str "#FF0000"; # 1
-      green         = mkOpt str "#00FF00"; # 2
-      yellow        = mkOpt str "#FFFF00"; # 3
-      blue          = mkOpt str "#0000FF"; # 4
-      magenta       = mkOpt str "#FF00FF"; # 5
-      cyan          = mkOpt str "#00FFFF"; # 6
-      silver        = mkOpt str "#BBBBBB"; # 7
-      grey          = mkOpt str "#888888"; # 8
-      brightred     = mkOpt str "#FF8800"; # 9
-      brightgreen   = mkOpt str "#00FF80"; # 10
-      brightyellow  = mkOpt str "#FF8800"; # 11
-      brightblue    = mkOpt str "#0088FF"; # 12
-      brightmagenta = mkOpt str "#FF88FF"; # 13
-      brightcyan    = mkOpt str "#88FFFF"; # 14
-      white         = mkOpt str "#FFFFFF"; # 15
+    ## Apps/Services
+    services.xserver.displayManager.lightdm.greeters.mini.user = config.user.name;
 
-      # Color classes
-      types = {
-        bg        = mkOpt str cfg.colors.black;
-        fg        = mkOpt str cfg.colors.white;
-        panelbg   = mkOpt str cfg.colors.types.bg;
-        panelfg   = mkOpt str cfg.colors.types.fg;
-        border    = mkOpt str cfg.colors.types.bg;
-        error     = mkOpt str cfg.colors.red;
-        warning   = mkOpt str cfg.colors.yellow;
-        highlight = mkOpt str cfg.colors.white;
-      };
-    };
+    # Try really hard to get QT to respect my GTK theme.
+    env.GTK_DATA_PREFIX = [ "${config.system.path}" ];
+    env.QT_QPA_PLATFORMTHEME = "gnome";
+    env.QT_STYLE_OVERRIDE = "kvantum";
+
+    services.xserver.displayManager.sessionCommands = ''
+      # GTK2_RC_FILES must be available to the display manager.
+      export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+    '';
+
+    # Clean up leftovers, as much as we can
+    system.userActivationScripts.cleanupHome = ''
+      pushd "${config.user.home}"
+      rm -rf .compose-cache .nv .pki .dbus .fehbg
+      [ -s .xsession-errors ] || rm -f .xsession-errors*
+      popd
+    '';
   };
-
-  config = mkIf (cfg.active != null) (mkMerge [
-    {
-      home.configFile = {
-        # GTK
-        "gtk-3.0/settings.ini".text = ''
-          [Settings]
-          ${optionalString (cfg.gtk.theme != "")
-            ''gtk-theme-name=${cfg.gtk.theme}''}
-          ${optionalString (cfg.gtk.iconTheme != "")
-            ''gtk-icon-theme-name=${cfg.gtk.iconTheme}''}
-          ${optionalString (cfg.gtk.cursorTheme != "")
-            ''gtk-cursor-theme-name=${cfg.gtk.cursorTheme}''}
-          gtk-fallback-icon-theme=gnome
-          gtk-application-prefer-dark-theme=true
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle=hintfull
-          gtk-xft-rgba=none
-        '';
-        # GTK2 global theme (widget and icon theme)
-        "gtk-2.0/gtkrc".text = ''
-          ${optionalString (cfg.gtk.theme != "")
-            ''gtk-theme-name="${cfg.gtk.theme}"''}
-          ${optionalString (cfg.gtk.iconTheme != "")
-            ''gtk-icon-theme-name="${cfg.gtk.iconTheme}"''}
-          gtk-font-name="Sans ${toString(cfg.fonts.sans.size)}"
-        '';
-      };
-
-      fonts.fontconfig.defaultFonts = {
-        sansSerif = [ cfg.fonts.sans.name ];
-        monospace = [ cfg.fonts.mono.name ];
-      };
-    }
-
-    (mkIf (cfg.wallpaper != null)
-      # Set the wallpaper ourselves so we don't need .background-image and/or
-      # .fehbg polluting $HOME
-      (let wCfg = config.services.xserver.desktopManager.wallpaper;
-           command = ''
-             if [ -e "$XDG_DATA_HOME/wallpaper" ]; then
-               ${pkgs.feh}/bin/feh --bg-${wCfg.mode} \
-                 ${optionalString wCfg.combineScreens "--no-xinerama"} \
-                 --no-fehbg \
-                 $XDG_DATA_HOME/wallpaper
-             fi
-          '';
-       in {
-         services.xserver.displayManager.sessionCommands = command;
-         modules.theme.onReload.wallpaper = command;
-
-         home.dataFile = mkIf (cfg.wallpaper != null) {
-           "wallpaper".source = cfg.wallpaper;
-         };
-       }))
-
-    (mkIf (cfg.loginWallpaper != null) {
-      services.xserver.displayManager.lightdm.background = cfg.loginWallpaper;
-    })
-  ]);
 }
