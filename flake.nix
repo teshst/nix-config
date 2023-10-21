@@ -71,6 +71,9 @@
     nixosModules =
       { dotfiles = import ./.; } // mapModulesRec ./modules import;
 
+    devShell."${system}" =
+      import ./shell.nix { inherit pkgs; };
+
     nixosConfigurations =
       mapHosts ./hosts {};
   };
