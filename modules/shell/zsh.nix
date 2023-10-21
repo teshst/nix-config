@@ -56,12 +56,24 @@ in {
 
     home.programs.zsh = {
       enable = true;
+      enableAutosuggestions = true;
       enableCompletion = true;
-      syntaxHighlighting.enable = true;
       enableVteIntegration = true;
-      historySubstringSearch.enable = true;
-      autocd = true;
+      syntaxHighlighting.enable = true;
+      autocd = false;
       dotDir = "$ZDOTDIR";
+      history = {
+        path = "$XDG_CACHE_HOME/zhistory";
+        expireDupsFirst = true;
+        ignoreDups = true;
+        ignoreAllDups = true;
+        ignoreSpace = true;
+        extended = true;
+        share = true;
+        size = 100000;
+        save = 100000;
+      };
+      historySubstringSearch.enable = true;
       antidote = {
         enable = true;
         plugins = [
