@@ -19,7 +19,6 @@ in {
           };
           fonts = {
             sans.name = "Fira Sans";
-            sansSerif = "Fire Sans Serif";
             mono.name = "Fira Code";
           };
         };

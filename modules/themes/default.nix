@@ -34,11 +34,8 @@ in {
       mono = {
         name = mkOpt str "Monospace";
       };
-      serif = {
-        name = mkOpt str "Serif";
-      };
-      sansSerif = {
-        name = mkOpt str "Sans Serif";
+      sans = {
+        name = mkOpt str "Sans";
       };
       size = {
         desktop = mkOpt int 12;
@@ -56,8 +53,8 @@ in {
         image = cfg.wallpaper;
         polarity = cfg.polarity;
         fonts = {
-          serif = cfg.fonts.serif;
-          sansSerif = cfg.fonts.sansSerif;
+          serif = cfg.fonts.sans;
+          sansSerif = cfg.fonts.sans;
           monospace = cfg.fonts.mono;
           sizes = {
             desktop = cfg.fonts.size.desktop;
@@ -100,7 +97,7 @@ in {
             ''gtk-theme-name="${cfg.gtk.theme}"''}
           ${optionalString (cfg.gtk.iconTheme != "")
             ''gtk-icon-theme-name="${cfg.gtk.iconTheme}"''}
-          gtk-font-name="Sans ${toString(cfg.fonts.sansSerif.size)}"
+          gtk-font-name="Sans ${toString(cfg.fonts.sans.size)}"
         '';
         # QT4/5 global theme
         "Trolltech.conf".text = ''
@@ -111,8 +108,7 @@ in {
       };
 
       fonts.fontconfig.defaultFonts = {
-        serif = [ cfg.fonts.serif.name ];
-        sansSerif = [ cfg.fonts.sansSerif.name ];
+        sansSerif = [ cfg.fonts.sans.name ];
         monospace = [ cfg.fonts.mono.name ];
       };
     }
