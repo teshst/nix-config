@@ -48,7 +48,7 @@
      config.allowUnfree = true;  # forgive me Stallman senpai
      overlays = extraOverlays ++ (lib.attrValues self.overlays);
    };
-   pkgs  = mkPkgs nixpkgs [ self.overlay ];
+   pkgs  = mkPkgs nixpkgs [ self.overlays.default ];
 
    lib = nixpkgs.lib.extend
     (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
@@ -57,13 +57,14 @@
 
     lib = lib.my;
 
-    overlay =
+    overlays.default =
       final: prev: {
         my = self.packages."${system}";
       };
 
-    overlays =
-      mapModules ./overlays import;
+    overlays.custom =
+      final: prev:
+        (mapModules ./overlays import);
 
     packages."${system}" =
       mapModules ./packages (p: pkgs.callPackage p {});
@@ -71,7 +72,7 @@
     nixosModules =
       { dotfiles = import ./.; } // mapModulesRec ./modules import;
 
-    devShell."${system}" =
+    devShells."${system}".default =
       import ./shell.nix { inherit pkgs; };
 
     nixosConfigurations =
