@@ -2,7 +2,7 @@
 # intertwined with others, and are solely responsible for aesthetics. Disabling
 # a theme module should never leave a system non-functional.
 
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -20,7 +20,7 @@ in {
       '';
     };
 
-    wallpaper = mkOpt (either path null) null;
+    wallpaper = mkOpt path ./hex/config/wallpaper.png;
 
     gtk = {
       theme = mkOpt str "";
