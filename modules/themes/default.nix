@@ -28,54 +28,56 @@ in {
       cursorTheme = mkOpt str "";
     };
 
-    onReload = mkOpt (attrsOf lines) {};
+    polarity = mkOpt str "dark";
 
     fonts = {
-      # TODO Use submodules
       mono = {
         name = mkOpt str "Monospace";
-        size = mkOpt int 12;
       };
-      sans = {
-        name = mkOpt str "Sans";
-        size = mkOpt int 10;
+      serif = {
+        name = mkOpt str "Serif";
       };
-    };
-
-    colors = {
-      black         = mkOpt str "#000000"; # 0
-      red           = mkOpt str "#FF0000"; # 1
-      green         = mkOpt str "#00FF00"; # 2
-      yellow        = mkOpt str "#FFFF00"; # 3
-      blue          = mkOpt str "#0000FF"; # 4
-      magenta       = mkOpt str "#FF00FF"; # 5
-      cyan          = mkOpt str "#00FFFF"; # 6
-      silver        = mkOpt str "#BBBBBB"; # 7
-      grey          = mkOpt str "#888888"; # 8
-      brightred     = mkOpt str "#FF8800"; # 9
-      brightgreen   = mkOpt str "#00FF80"; # 10
-      brightyellow  = mkOpt str "#FF8800"; # 11
-      brightblue    = mkOpt str "#0088FF"; # 12
-      brightmagenta = mkOpt str "#FF88FF"; # 13
-      brightcyan    = mkOpt str "#88FFFF"; # 14
-      white         = mkOpt str "#FFFFFF"; # 15
-
-      # Color classes
-      types = {
-        bg        = mkOpt str cfg.colors.black;
-        fg        = mkOpt str cfg.colors.white;
-        panelbg   = mkOpt str cfg.colors.types.bg;
-        panelfg   = mkOpt str cfg.colors.types.fg;
-        border    = mkOpt str cfg.colors.types.bg;
-        error     = mkOpt str cfg.colors.red;
-        warning   = mkOpt str cfg.colors.yellow;
-        highlight = mkOpt str cfg.colors.white;
+      sansSerif = {
+        name = mkOpt str "SansSerif";
+      };
+      size = {
+        desktop = mkOpt int 12;
+        applications = mkOpt int 15;
+        terminal = mkOpt int 15;
+        popups = mkOpt int 12;
       };
     };
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
     {
+
+      inputs.stylix = {
+        image = wallpaper;
+        polarity = polarity;
+        fonts = {
+          serif = fonts.serif;
+          sansSerif = fonts.sansSerif;
+          monospace = fonts.mono;
+          sizes = {
+            desktop = fonts.size.desktop;
+            applications = fonts.size.applications;
+            terminal = fonts.size.terminal;
+            popups = fonts.size.popups;
+          };
+        };
+        opacity = {
+          terminal = 0.90;
+          applications = 0.90;
+          popups = 0.50;
+          desktop = 0.90;
+        };
+        targets = {
+          waybar.enableLeftBackColors = true;
+          waybar.enableRightBackColors = true;
+        };
+      };
+
       home.configFile = {
         # GTK
         "gtk-3.0/settings.ini".text = ''
@@ -109,7 +111,8 @@ in {
       };
 
       fonts.fontconfig.defaultFonts = {
-        sansSerif = [ cfg.fonts.sans.name ];
+        sans = [ cfg.fonts.sans.name ];
+        sansSerif = [ cfg.fonts.sansSerif.name ];
         monospace = [ cfg.fonts.mono.name ];
       };
     }
