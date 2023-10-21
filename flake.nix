@@ -36,7 +36,7 @@
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
     nixos-hardware.url = "github:teshst/nixos-hardware";
     nur.url = "github:nix-community/NUR";
-    stylix.url = "git+file:/home/mason/Documents/GitHub/stylix?branch=wallpaper-refactor";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
