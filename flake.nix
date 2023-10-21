@@ -58,12 +58,15 @@
     lib = lib.my;
 
     overlay =
-        final: prev: {
-          my = self.packages."${system}";
-        };
+      final: prev: {
+        my = self.packages."${system}";
+      };
 
     overlays =
       mapModules ./overlays import;
+
+    packages."${system}" =
+      mapModules ./packages (p: pkgs.callPackage p {});
 
     nixosModules =
       { dotfiles = import ./.; } // mapModulesRec ./modules import;

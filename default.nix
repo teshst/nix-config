@@ -39,7 +39,7 @@ with lib.my;
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
-  fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
+  fileSystems."/".device = mkDefault "/dev/disk/by-label/nix";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false
   # here. Per-interface useDHCP will be mandatory in the future, so we enforce

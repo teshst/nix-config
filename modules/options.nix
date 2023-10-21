@@ -12,6 +12,7 @@ with lib.my;
           (findFirst pathExists (toString ../.) [
             "/mnt/etc/nix-config"
             "/etc/nix-config"
+            "/home/seth/nix-config"
           ]));
       binDir     = mkOpt path "${config.dotfiles.dir}/bin";
       configDir  = mkOpt path "${config.dotfiles.dir}/config";

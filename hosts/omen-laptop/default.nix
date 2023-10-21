@@ -36,10 +36,7 @@
    };
    editors = {
      default = "nvim";
-     emacs = {
-       enable = true;
-       doom.enable = true;
-     };
+     emacs.enable = true;
      nvim.enable  = true;
    };
    shell = {
