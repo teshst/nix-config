@@ -4,8 +4,9 @@ with lib;
 with lib.my;
 {
   imports =
+
     # I use home-manager to deploy files to $HOME; little else
-    [ inputs.home-manager.nixosModules.home-manager inputs.stylix.nixosModules.stylix ]
+    [ inputs.home-manager.nixosModules.home-manager inputs.stylix.nixosModules.stylix]
 
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
