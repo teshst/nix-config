@@ -38,7 +38,7 @@ in {
         name = mkOpt str "Serif";
       };
       sansSerif = {
-        name = mkOpt str "SansSerif";
+        name = mkOpt str "Sans Serif";
       };
       size = {
         desktop = mkOpt int 12;
@@ -111,7 +111,7 @@ in {
       };
 
       fonts.fontconfig.defaultFonts = {
-        sans = [ cfg.fonts.sans.name ];
+        serif = [ cfg.fonts.serif.name ];
         sansSerif = [ cfg.fonts.sansSerif.name ];
         monospace = [ cfg.fonts.mono.name ];
       };
