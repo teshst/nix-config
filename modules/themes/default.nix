@@ -53,17 +53,17 @@ in {
     {
 
       inputs.stylix = {
-        image = wallpaper;
-        polarity = polarity;
+        image = cfg.wallpaper;
+        polarity = cfg.polarity;
         fonts = {
-          serif = fonts.serif;
-          sansSerif = fonts.sansSerif;
-          monospace = fonts.mono;
+          serif = cfg.fonts.serif;
+          sansSerif = cfg.fonts.sansSerif;
+          monospace = cfg.fonts.mono;
           sizes = {
-            desktop = fonts.size.desktop;
-            applications = fonts.size.applications;
-            terminal = fonts.size.terminal;
-            popups = fonts.size.popups;
+            desktop = cfg.fonts.size.desktop;
+            applications = cfg.fonts.size.applications;
+            terminal = cfg.fonts.size.terminal;
+            popups = cfg.fonts.size.popups;
           };
         };
         opacity = {
@@ -100,7 +100,7 @@ in {
             ''gtk-theme-name="${cfg.gtk.theme}"''}
           ${optionalString (cfg.gtk.iconTheme != "")
             ''gtk-icon-theme-name="${cfg.gtk.iconTheme}"''}
-          gtk-font-name="Sans ${toString(cfg.fonts.sans.size)}"
+          gtk-font-name="Sans ${toString(cfg.fonts.sansSerif.size)}"
         '';
         # QT4/5 global theme
         "Trolltech.conf".text = ''
