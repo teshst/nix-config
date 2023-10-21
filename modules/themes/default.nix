@@ -82,6 +82,11 @@ in {
   config = mkIf (cfg.active != null) (mkMerge [
     {
 
+      inputs.stylix = {
+        image = cfg.wallpaper;
+        polarity = "dark";
+      };
+
       home.configFile = {
         # GTK
         "gtk-3.0/settings.ini".text = ''
