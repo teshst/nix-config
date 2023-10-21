@@ -2,7 +2,7 @@
 # intertwined with others, and are solely responsible for aesthetics. Disabling
 # a theme module should never leave a system non-functional.
 
-{ options, config, lib, pkgs, inputs, ... }:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
@@ -33,8 +33,6 @@ in {
       cursorTheme = mkOpt str "";
     };
 
-    polarity = mkOpt str "dark";
-
     fonts = {
       mono = {
         name = mkOpt str "Monospace";
@@ -47,6 +45,36 @@ in {
         applications = mkOpt int 15;
         terminal = mkOpt int 15;
         popups = mkOpt int 12;
+      };
+    };
+    colors = {
+      black         = mkOpt str "#000000"; # 0
+      red           = mkOpt str "#FF0000"; # 1
+      green         = mkOpt str "#00FF00"; # 2
+      yellow        = mkOpt str "#FFFF00"; # 3
+      blue          = mkOpt str "#0000FF"; # 4
+      magenta       = mkOpt str "#FF00FF"; # 5
+      cyan          = mkOpt str "#00FFFF"; # 6
+      silver        = mkOpt str "#BBBBBB"; # 7
+      grey          = mkOpt str "#888888"; # 8
+      brightred     = mkOpt str "#FF8800"; # 9
+      brightgreen   = mkOpt str "#00FF80"; # 10
+      brightyellow  = mkOpt str "#FF8800"; # 11
+      brightblue    = mkOpt str "#0088FF"; # 12
+      brightmagenta = mkOpt str "#FF88FF"; # 13
+      brightcyan    = mkOpt str "#88FFFF"; # 14
+      white         = mkOpt str "#FFFFFF"; # 15
+
+      # Color classes
+      types = {
+        bg        = mkOpt str cfg.colors.black;
+        fg        = mkOpt str cfg.colors.white;
+        panelbg   = mkOpt str cfg.colors.types.bg;
+        panelfg   = mkOpt str cfg.colors.types.fg;
+        border    = mkOpt str cfg.colors.types.bg;
+        error     = mkOpt str cfg.colors.red;
+        warning   = mkOpt str cfg.colors.yellow;
+        highlight = mkOpt str cfg.colors.white;
       };
     };
   };
@@ -76,7 +104,7 @@ in {
             ''gtk-theme-name="${cfg.gtk.theme}"''}
           ${optionalString (cfg.gtk.iconTheme != "")
             ''gtk-icon-theme-name="${cfg.gtk.iconTheme}"''}
-          gtk-font-name="Sans ${toString(cfg.fonts.sans.size)}"
+          gtk-font-name="Sans ${toString(cfg.fonts.size.applications)}"
         '';
         # QT4/5 global theme
         "Trolltech.conf".text = ''

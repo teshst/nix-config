@@ -33,17 +33,8 @@
     };
 
     # Extras
-    emacs-overlay = {
-      url  = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    emacs-overlay.url  = "github:nix-community/emacs-overlay";
     nixos-hardware.url = "github:teshst/nixos-hardware";
-    nur.url = "github:nix-community/NUR";
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
