@@ -6,9 +6,6 @@ let cfg = config.modules.desktop.hyprland;
     configDir = config.dotfiles.configDir;
 in {
 
-  imports =  [
-  ];
-
   options.modules.desktop.hyprland = {
     enable = mkBoolOpt false;
   };

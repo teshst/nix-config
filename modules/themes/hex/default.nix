@@ -30,7 +30,6 @@ in {
           ];
         };
       };
-
     }
 
     # Desktop (X11) theming

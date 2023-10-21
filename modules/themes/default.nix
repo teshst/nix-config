@@ -20,7 +20,12 @@ in {
       '';
     };
 
-    wallpaper = mkOpt path ./hex/config/wallpaper.png;
+    wallpaper = mkOpt (either path null) null;
+
+    loginWallpaper = mkOpt (either path null)
+      (if cfg.wallpaper != null
+       then toFilteredImage cfg.wallpaper "-gaussian-blur 0x2 -modulate 70 -level 5%"
+       else null);
 
     gtk = {
       theme = mkOpt str "";
@@ -48,32 +53,6 @@ in {
 
   config = mkIf (cfg.active != null) (mkMerge [
     {
-
-      inputs.stylix = {
-        image = cfg.wallpaper;
-        polarity = cfg.polarity;
-        fonts = {
-          serif = cfg.fonts.sans;
-          sansSerif = cfg.fonts.sans;
-          monospace = cfg.fonts.mono;
-          sizes = {
-            desktop = cfg.fonts.size.desktop;
-            applications = cfg.fonts.size.applications;
-            terminal = cfg.fonts.size.terminal;
-            popups = cfg.fonts.size.popups;
-          };
-        };
-        opacity = {
-          terminal = 0.90;
-          applications = 0.90;
-          popups = 0.50;
-          desktop = 0.90;
-        };
-        targets = {
-          waybar.enableLeftBackColors = true;
-          waybar.enableRightBackColors = true;
-        };
-      };
 
       home.configFile = {
         # GTK
@@ -112,5 +91,8 @@ in {
         monospace = [ cfg.fonts.mono.name ];
       };
     }
+    (mkIf (cfg.loginWallpaper != null) {
+      services.xserver.displayManager.lightdm.background = cfg.loginWallpaper;
+    })
   ]);
 }
