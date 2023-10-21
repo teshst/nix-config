@@ -64,7 +64,7 @@ in {
       dotDir = "$ZDOTDIR";
       history = {
         path = "$XDG_CACHE_HOME/zhistory";
-        expireDupsFirst = true;
+        expireDuplicatesFirst = true;
         ignoreDups = true;
         ignoreAllDups = true;
         ignoreSpace = true;
