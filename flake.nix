@@ -38,7 +38,7 @@
     stylix.url = "github:danth/stylix";
   };
 
-  outputs = inputs @ { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, ... }@inputs:
   let
    inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -74,7 +74,7 @@
       { dotfiles = import ./.; } // mapModulesRec ./modules import;
 
     nixosConfigurations =
-      mapHosts ./hosts { inherit inputs; };
+      mapHosts ./hosts { };
 
     devShells."${system}".default =
       import ./shell.nix { inherit pkgs; };

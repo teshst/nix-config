@@ -50,7 +50,6 @@
    services = {
      ssh.enable  = true;
    };
-   themes.enable = true;
  };
 
  ## Local config

@@ -76,7 +76,6 @@ with lib.my;
 
         imports = [
           inputs.hyprland.homeManagerModules.default
-          stylix.homeManagerModules.stylix
         ];
 
         home = {
