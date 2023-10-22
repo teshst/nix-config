@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.themes;
+let cfg = config.modules.theme;
 in {
-  options.modules.themes = with types; {
+  options.modules.theme = with types; {
     enable = mkBoolOpt false;
 
     wallpaper = mkOpt path ./config/wallpaper.png;
@@ -12,10 +12,10 @@ in {
     polarity = mkOpt str "dark";
   };
 
-  # config = cfg.enable {
+  config = cfg.enable {
   #   inputs.stylix = {
   #     image = cfg.wallpaper;
   #     polarity = cfg.polarity;
   #   };
-  #};
+  };
 }
