@@ -14,8 +14,8 @@ in {
     doom = rec {
       enable = mkBoolOpt false;
       forgeUrl = mkOpt types.str "https://github.com";
-      repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
-      configRepoUrl = mkOpt types.str "${forgeUrl}/teshst/doom-emacs-private";
+      repoUrl = mkOpt types.str forgeUrl + "/doomemacs/doomemacs";
+      configRepoUrl = mkOpt types.str forgeUrl + "/teshst/doom-emacs-private";
     };
   };
 
@@ -27,7 +27,7 @@ in {
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
       # 28.2 + native-comp
-      ((emacsPackagesFor emacsNativeComp).emacsWithPackages
+      ((emacsPackagesFor emacs-unstable).emacsWithPackages
         (epkgs: [ epkgs.vterm ]))
 
       ## Doom dependencies
