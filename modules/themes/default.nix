@@ -12,10 +12,10 @@ in {
     polarity = mkOpt str "dark";
   };
 
-  config = cfg.enable {
-    inputs.stylix = {
-      image = cfg.wallpaper;
-      polarity = cfg.polarity;
-    };
-  };
+  # config = cfg.enable {
+  #   inputs.stylix = {
+  #     image = cfg.wallpaper;
+  #     polarity = cfg.polarity;
+  #   };
+  #};
 }
