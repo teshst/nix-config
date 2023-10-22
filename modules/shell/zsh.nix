@@ -68,11 +68,11 @@ in {
           "romkatv/powerlevel10k"
           "hlissner/zsh-autopair"
         ];
-        loginExtra = ''
-        # FIXME make check for hyprland
-          exec ${pkgs.hyprland}/bin/Hyprland
-        '';
       };
+      loginExtra = ''
+       # FIXME make check for hyprland
+       exec ${pkgs.hyprland}/bin/Hyprland
+      '';
     };
    };
 }

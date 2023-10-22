@@ -34,12 +34,11 @@
 
     # Extras
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:teshst/nixos-hardware";
     stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = inputs @ { self, nixpkgs, ... }:
   let
    inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -74,10 +73,10 @@
     nixosModules =
       { dotfiles = import ./.; } // mapModulesRec ./modules import;
 
+    nixosConfigurations =
+      mapHosts ./hosts { };
+
     devShells."${system}".default =
       import ./shell.nix { inherit pkgs; };
-
-    nixosConfigurations =
-      mapHosts ./hosts {};
   };
 }

@@ -32,7 +32,7 @@ in {
 
     services = {
       xserver = {
-        enable = true;
+        enable = false;
       };
     };
 

@@ -22,13 +22,12 @@ in {
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
 
-    services.emacs.enable = true;
 
     user.packages = with pkgs; [
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
       # 28.2 + native-comp
-      ((emacsPackagesFor emacs-unstable).emacsWithPackages
+      ((emacsPackagesFor emacsNativeComp).emacsWithPackages
         (epkgs: [ epkgs.vterm ]))
 
       ## Doom dependencies
@@ -59,9 +58,9 @@ in {
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
-    modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
     fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
+
+    services.emacs.enable = true;
 
     system.userActivationScripts = mkIf cfg.doom.enable {
       installDoomEmacs = ''
