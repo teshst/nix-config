@@ -12,7 +12,6 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      lightdm
       wl-clipboard
       wl-clip-persist
       cliphist
@@ -23,22 +22,18 @@ in {
       swaylock-effects
     ];
 
-    services = {
-      xserver = {
-        enable = true;
-        displayManager = {
-          lightdm.enable = true;
-          lightdm.greeters.mini.enable = true;
-        };
-      };
-    };
-
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
       ];
       wlr.enable = true;
+    };
+
+    services = {
+      xserver = {
+        enable = true;
+      };
     };
 
     home.programs.swaylock = {
@@ -88,6 +83,11 @@ in {
       XDG_SESSION_TYPE="wayland";
       XDG_SESSION_DESKTOP="Hyprland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
+    };
+
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
     };
 
     home.wayland.windowManager.hyprland = {

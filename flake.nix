@@ -34,6 +34,7 @@
 
     # Extras
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:teshst/nixos-hardware";
     stylix.url = "github:danth/stylix";
   };

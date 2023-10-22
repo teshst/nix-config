@@ -37,6 +37,7 @@
    editors = {
      default = "nvim";
      emacs.enable = true;
+     emacs.doom.enable = true;
      nvim.enable  = true;
    };
    shell = {
@@ -47,7 +48,7 @@
    services = {
      ssh.enable  = true;
    };
-   theme.active = "hex";
+   themes.enable = true;
  };
 
  ## Local config
