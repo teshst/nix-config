@@ -3,12 +3,12 @@
 with lib;
 with lib.my;
 {
-  imports =
-
+  imports = with inputs;
     # I use home-manager to deploy files to $HOME; little else
     [
-      inputs.home-manager.nixosModules.home-manager
-      inputs.hyprland.nixosModules.default
+      home-manager.nixosModules.home-manager
+      hyprland.nixosModules.default
+      nur.nixosModules.nur
     ]
 
     # All my personal modules

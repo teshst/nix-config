@@ -389,6 +389,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1698090339,
+        "narHash": "sha256-HHFQ0Ojwh6Ks74FL1VUQ54CnsD5wRefhSz91xrhqNrA=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "4f67b1b136b1c1f05edd0e0837b79a49cab30641",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -397,6 +412,7 @@
         "hyprland": "hyprland",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nur": "nur",
         "stylix": "stylix"
       }
     },
