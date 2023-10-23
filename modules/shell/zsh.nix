@@ -13,31 +13,10 @@ in {
   config = mkIf cfg.enable {
     users.defaultUserShell = pkgs.zsh;
 
-    env = {
-      ZDOTDIR   = "$XDG_CONFIG_HOME/zsh";
-      ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
-    };
-
-    user.packages = with pkgs; [
-      zsh
-      nix-zsh-completions
-      bat
-      eza
-      fasd
-      fd
-      fzf
-      jq
-      ripgrep
-      tldr
-    ];
-
-    # FIXME NixOS (need better solution)
     programs.zsh = {
       enable = true;
-      # I init completion myself, because enableGlobalCompInit initializes it
-      # too soon, which means commands initialized later in my config won't get
-      # completion, and running compinit twice is slow.
-      promptInit = "";
+      histSize = 10000;
+      histFile = ".config/zsh/history";
     };
 
     home.programs.zsh = {
@@ -46,29 +25,24 @@ in {
       enableCompletion = true;
       enableVteIntegration = true;
       syntaxHighlighting.enable = true;
-      autocd = false;
-      dotDir = "$ZDOTDIR";
-      history = {
-        path = "$XDG_CACHE_HOME/zhistory";
-        expireDuplicatesFirst = true;
-        ignoreDups = true;
-        ignoreAllDups = true;
-        ignoreSpace = true;
-        extended = true;
-        share = true;
-        size = 100000;
-        save = 100000;
-      };
-      historySubstringSearch.enable = true;
-      antidote = {
-        enable = true;
-        plugins = [
-          "junegunn/fzf"
-          "jeffreytse/zsh-vi-mode"
-          "romkatv/powerlevel10k"
-          "hlissner/zsh-autopair"
-        ];
-      };
+      dotDir = ".config/zsh";
+      plugins =
+      [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = "${configDir}/zsh/p10k-config";
+          file = "p10k.zsh";
+        }
+      ];
+  		oh-my-zsh = {
+				enable = true;
+				plugins = [ "git" "sudo" ];
+			};
       loginExtra = ''
        # FIXME make check for hyprland
        exec ${pkgs.hyprland}/bin/Hyprland

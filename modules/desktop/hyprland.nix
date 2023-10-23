@@ -95,17 +95,11 @@ in {
       xwayland.enable = true;
       recommendedEnvironment = true;
       systemdIntegration = true;
+			extraConfig = import "${configDir}/hypr/hyprland.conf";
     };
 
     user.extraGroups = [ "video" "input" ];
 
-    # link recursively so other modules can link files in their folders
-    home.configFile = {
-      "hypr" = {
-        source = "${configDir}/hypr";
-        recursive = true;
-      };
-    };
 
     home.file = {
       ".config/hypr/script/clamshell.sh" = {
