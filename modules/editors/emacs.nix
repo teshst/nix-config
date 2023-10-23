@@ -53,13 +53,17 @@ in {
       # :lang beancount
       beancount
       fava  # HACK Momentarily broken on nixos-unstable
+      python3
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
     fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
 
-    services.emacs.enable = true;
+    services.emacs =  {
+      enable = true;
+      package = pkgs.emacs-unstable;
+    };
 
     system.userActivationScripts = mkIf cfg.doom.enable {
       installDoomEmacs = ''
