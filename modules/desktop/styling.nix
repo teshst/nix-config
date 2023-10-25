@@ -11,8 +11,6 @@ in {
 
   config = mkIf cfg.enable {
 
-    programs.dconf.enable = true;
-
     fonts = {
       packages = with pkgs; [
         emacs-all-the-icons-fonts
@@ -22,8 +20,8 @@ in {
       fontconfig.enable = true;
     };
 
-    config.stylix = {
-      image = (builtins.toPath "${themeDir}/wallpaper.png");
+    stylix = {
+      image = ./wallpaper.png;
       polarity = "dark";
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
