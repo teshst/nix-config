@@ -97,6 +97,9 @@ in {
       recommendedEnvironment = true;
       systemdIntegration = true;
 			extraConfig = import "${configDir}/hypr/hyprland.conf";
+      settings = {
+
+      };
     };
 
     user.extraGroups = [ "video" "input" ];
