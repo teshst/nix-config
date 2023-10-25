@@ -63,7 +63,6 @@ in {
 
     services.udisks2.enable = true;
     home.services.udiskie.enable = true;
-    home.services.poweralertd.enable = true;
     services.gnome.gnome-keyring.enable = true;
 
     systemd.user.services."dunst" = {
