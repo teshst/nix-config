@@ -17,7 +17,7 @@ in {
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
-        serif = stylix.fonts.sansSerif;
+        serif = config.stylix.fonts.sansSerif;
       };
     };
 
