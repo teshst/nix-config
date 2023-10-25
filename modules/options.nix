@@ -75,10 +75,6 @@ with lib.my;
         systemd = mkAliasDefinitions options.home.systemd;
         wayland = mkAliasDefinitions options.home.wayland;
 
-        imports = [
-          inputs.hyprland.homeManagerModules.default
-        ];
-
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
