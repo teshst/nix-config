@@ -12,11 +12,6 @@ in {
 
   config = mkIf cfg.enable {
 
-    modules = [
-      # set system's scheme to nord by setting `config.scheme`
-      { scheme = "${inputs.base16-schemes}/onedark.yaml"; }
-    ];
-
     stylix = {
       image = toPath "${themeDir}/wallpaper.png";
       base16Scheme = scheme;
