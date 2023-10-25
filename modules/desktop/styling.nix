@@ -15,7 +15,7 @@ in {
     programs.dconf.enable = true;
 
     stylix = {
-      image = toPath "${themeDir}/wallpaper.png";
+      image = "${themeDir}/wallpaper.png";
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
