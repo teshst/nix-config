@@ -25,9 +25,8 @@ in {
     };
 
     stylix = {
-      extraHomeManagerOptions.targets.xfce = disabled;
+      image = ./wallpaper.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
-      image = "${themeDir}/wallpaper.png";
       polarity = "dark";
 
       fonts = {
