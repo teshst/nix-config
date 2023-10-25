@@ -11,6 +11,10 @@ in {
 
   config = mkIf cfg.enable {
 
+    user.packages = with pkgs; [
+      base16-schemes
+    ];
+
     fonts = {
       packages = with pkgs; [
         emacs-all-the-icons-fonts
@@ -20,10 +24,10 @@ in {
       fontconfig.enable = true;
     };
 
-  stylix = {
-      base16Scheme = "${inputs.base16-schemes}/share/themes/onedark.yaml";
+    stylix = {
+      extraHomeManagerOptions.targets.xfce = disabled;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
       image = "${themeDir}/wallpaper.png";
-      homeManagerIntegration.autoImport = false;
       polarity = "dark";
 
       fonts = {
