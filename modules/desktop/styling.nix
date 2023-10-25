@@ -20,9 +20,9 @@ in {
       fontconfig.enable = true;
     };
 
-    stylix = {
+  stylix = {
       base16Scheme = "${inputs.base16-schemes}/share/themes/onedark.yaml";
-      image = ./. + "${themeDir}/wallpaper.png";
+      image = "${themeDir}/wallpaper.png";
       homeManagerIntegration.autoImport = false;
       polarity = "dark";
 
