@@ -20,7 +20,6 @@ in {
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];
       fontconfig.enable = true;
-      fontDir.enable = true;
     };
 
     stylix = {
@@ -41,10 +40,10 @@ in {
               name = "FiraCode Nerd Font Mono";
           };
           sizes = {
-              desktop = 12;
-              applications = 15;
-              terminal = 15;
-              popups = 12;
+              desktop = 10;
+              applications = 10;
+              terminal = 10;
+              popups = 10;
           };
       };
     };
