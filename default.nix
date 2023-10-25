@@ -11,7 +11,6 @@ with lib.my;
       nur.nixosModules.nur
       stylix.nixosModules.stylix
       base16.nixosModule
-      { scheme = "${base16-schemes}/onedark.yaml"; }
     ]
 
     # All my personal modules

@@ -14,7 +14,7 @@ in {
 
     stylix = {
       image = toPath "${themeDir}/wallpaper.png";
-      base16Scheme = config.scheme;
+      base16Scheme = "${base16-schemes}/onedark.yaml";
 
       fonts = {
         serif = stylix.fonts.sansSerif;
