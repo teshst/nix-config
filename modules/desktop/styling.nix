@@ -1,5 +1,6 @@
 { config, options, lib, pkgs, ... }:
 
+with builtins;
 with lib;
 with lib.my;
 let cfg = config.modules.desktop.styling;
@@ -11,9 +12,14 @@ in {
 
   config = mkIf cfg.enable {
 
+    modules = [
+      # set system's scheme to nord by setting `config.scheme`
+      { scheme = "${inputs.base16-schemes}/onedark.yaml"; }
+    ];
+
     stylix = {
-      image = "${themeDir}/wallpaper.png";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
+      image = toPath "${themeDir}/wallpaper.png";
+      base16Scheme = scheme;
 
       fonts = {
         serif = stylix.fonts.sansSerif;

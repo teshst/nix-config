@@ -17,6 +17,10 @@
  ];
 
  modules = {
+   hardware = {
+     audio.enable = true;
+     bluetooth.enable = true;
+   };
    desktop = {
      hyprland.enable = true;
      apps = {
