@@ -36,7 +36,7 @@ in {
       package = pkgs.swaylock-effects;
       settings = {
         ignore-empty-password = true;
-        image = "${themeDir}/wallpaper.png";
+        #image = "${themeDir}/wallpaper.png";
         indicator = true;
         indicator-idle-visible = true;
         indicator-caps-lock = true;
