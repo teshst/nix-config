@@ -14,12 +14,11 @@ in {
 
     stylix = {
       image = toPath "${themeDir}/wallpaper.png";
-      base16Scheme = scheme;
+      base16Scheme = config.scheme;
 
       fonts = {
         serif = stylix.fonts.sansSerif;
       };
-
     };
 
   };
