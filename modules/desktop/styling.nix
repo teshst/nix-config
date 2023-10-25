@@ -22,7 +22,6 @@ in {
       ];
       fontconfig.enable = true;
       fontDir.enable = true;
-      enableGhostScriptFonts = true;
     };
 
     stylix = {
