@@ -21,10 +21,10 @@ in {
     };
 
     stylix = {
+      base16Scheme = "${inputs.base16-schemes}/share/themes/onedark.yaml";
       image = ./wallpaper.png;
       homeManagerIntegration.autoImport = false;
       polarity = "dark";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
 
       fonts = {
           serif = {
