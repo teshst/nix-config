@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 with builtins;
 with lib;
@@ -14,7 +14,7 @@ in {
 
     stylix = {
       image = toPath "${themeDir}/wallpaper.png";
-      base16Scheme = "${base16-schemes}/onedark.yaml";
+      base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
         serif = stylix.fonts.sansSerif;
