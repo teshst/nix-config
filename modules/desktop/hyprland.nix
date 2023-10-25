@@ -85,11 +85,16 @@ in {
       QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
     };
 
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+
     home.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
       systemd.enable = true;
-			extraConfig = import "${configDir}/hypr/hyprland.conf";
+      extraConfig = import "${configDir}/hypr/hyprland.conf";
     };
 
     user.extraGroups = [ "video" "input" ];
