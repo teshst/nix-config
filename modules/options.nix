@@ -77,6 +77,8 @@ with lib.my;
 
         imports = with inputs; [
           stylix.homeManagerModules.stylix
+          # FIXME: remove when https://github.com/danth/stylix/issues/180 is fixed
+          { stylix.targets.xfce.enable = false; }
         ];
 
         home = {

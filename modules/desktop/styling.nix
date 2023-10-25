@@ -51,6 +51,5 @@ in {
           };
       };
     };
-    home.config.stylix.targets.xfce.enable = false;
   };
 }
