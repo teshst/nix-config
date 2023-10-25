@@ -5,11 +5,11 @@
         "fromYaml": "fromYaml"
       },
       "locked": {
-        "lastModified": 1689633990,
-        "narHash": "sha256-iwvQg2Vx0IIDWZaKo8Xmzxlv1YPHg+Kp/QSv8dRv0RY=",
+        "lastModified": 1691878844,
+        "narHash": "sha256-NCV0asC77UARa5/TCJY9ksFvf7VndCSaap/aTEcDxBw=",
         "owner": "SenchoPens",
         "repo": "base16.nix",
-        "rev": "dddf2e1c04845d43c89a8e9e37d574519649a404",
+        "rev": "def69d6edc32792562975aec863dbef757f832cf",
         "type": "github"
       },
       "original": {
@@ -98,6 +98,22 @@
         "type": "github"
       }
     },
+    "base16-schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696158499,
+        "narHash": "sha256-5yIHgDTPjoX/3oDEfLSQ0eJZdFL1SaCfb9d6M0RmOTM=",
+        "owner": "base16-project",
+        "repo": "base16-schemes",
+        "rev": "a9112eaae86d9dd8ee6bb9445b664fba2f94037a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "base16-project",
+        "repo": "base16-schemes",
+        "type": "github"
+      }
+    },
     "base16-tmux": {
       "flake": false,
       "locked": {
@@ -117,6 +133,22 @@
     "base16-vim": {
       "flake": false,
       "locked": {
+        "lastModified": 1696727080,
+        "narHash": "sha256-K9RieddXTKgMakMFdDTUqvsE1mL6kKHt0b/SUp37tXI=",
+        "owner": "base16-project",
+        "repo": "base16-vim",
+        "rev": "5b54dcbb679ea208bd0a2d814fae4787a2764c1f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "base16-project",
+        "repo": "base16-vim",
+        "type": "github"
+      }
+    },
+    "base16-vim_2": {
+      "flake": false,
+      "locked": {
         "lastModified": 1663659192,
         "narHash": "sha256-uJvaYYDMXvoo0fhBZUhN8WBXeJ87SRgof6GEK2efFT0=",
         "owner": "chriskempson",
@@ -127,6 +159,40 @@
       "original": {
         "owner": "chriskempson",
         "repo": "base16-vim",
+        "type": "github"
+      }
+    },
+    "base16-zathura": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643130739,
+        "narHash": "sha256-nVJoygnytYN40VHXpAFwO7ruVbaSydeR547MU45VSuY=",
+        "owner": "haozeke",
+        "repo": "base16-zathura",
+        "rev": "9f148b4001dc67d399e645919225943d47e50125",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haozeke",
+        "repo": "base16-zathura",
+        "type": "github"
+      }
+    },
+    "base16_2": {
+      "inputs": {
+        "fromYaml": "fromYaml_2"
+      },
+      "locked": {
+        "lastModified": 1689633990,
+        "narHash": "sha256-iwvQg2Vx0IIDWZaKo8Xmzxlv1YPHg+Kp/QSv8dRv0RY=",
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "rev": "dddf2e1c04845d43c89a8e9e37d574519649a404",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
         "type": "github"
       }
     },
@@ -205,6 +271,22 @@
       }
     },
     "fromYaml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689549921,
+        "narHash": "sha256-iX0pk/uB019TdBGlaJEWvBCfydT6sRq+eDcGPifVsCM=",
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
+        "rev": "11fbbbfb32e3289d3c631e0134a23854e7865c84",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
+        "type": "github"
+      }
+    },
+    "fromYaml_2": {
       "flake": false,
       "locked": {
         "lastModified": 1689549921,
@@ -406,6 +488,10 @@
     },
     "root": {
       "inputs": {
+        "base16": "base16",
+        "base16-schemes": "base16-schemes",
+        "base16-vim": "base16-vim",
+        "base16-zathura": "base16-zathura",
         "disko": "disko",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
@@ -418,14 +504,14 @@
     },
     "stylix": {
       "inputs": {
-        "base16": "base16",
+        "base16": "base16_2",
         "base16-alacritty": "base16-alacritty",
         "base16-fish": "base16-fish",
         "base16-foot": "base16-foot",
         "base16-helix": "base16-helix",
         "base16-kitty": "base16-kitty",
         "base16-tmux": "base16-tmux",
-        "base16-vim": "base16-vim",
+        "base16-vim": "base16-vim_2",
         "flake-compat": "flake-compat",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_3"

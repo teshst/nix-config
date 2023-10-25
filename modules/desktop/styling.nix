@@ -9,7 +9,7 @@ in {
     enable = mkBoolOpt false;
   };
 
-  config = cfg.enable {
+  config = mkIf cfg.enable {
 
     stylix = {
       image = "${themeDir}/wallpaper.png";
