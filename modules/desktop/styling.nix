@@ -50,8 +50,7 @@ in {
               popups = 10;
           };
       };
-
-      home.config.stylix.targets.xfce.enable = false;
     };
+    home.config.stylix.targets.xfce.enable = false;
   };
 }
