@@ -17,7 +17,7 @@ in {
     fonts = {
       packages = with pkgs; [
         emacs-all-the-icons-fonts
-        dejavu-fonts
+        dejavu_fonts
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];
       fontconfig.enable = true;
