@@ -28,7 +28,7 @@ in {
     stylix = {
       image = ./wallpaper.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
-      polarity = "dark";
+      homeManagerIntegration.autoImport = false;
 
       fonts = {
           serif = {
@@ -50,6 +50,8 @@ in {
               popups = 10;
           };
       };
+
+      home.config.stylix.targets.xfce.enable = false;
     };
   };
 }
