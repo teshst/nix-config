@@ -9,6 +9,8 @@ with lib.my;
       home-manager.nixosModules.home-manager
       hyprland.nixosModules.default
       nur.nixosModules.nur
+      stylix.nixosModules.stylix
+      base16.nixosModule
     ]
 
     # All my personal modules
