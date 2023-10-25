@@ -23,7 +23,7 @@
    };
    desktop = {
      hyprland.enable = true;
-     styling.enable = true;
+     styling.enable = false;
      apps = {
        rofi.enable = true;
      };

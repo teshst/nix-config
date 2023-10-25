@@ -23,7 +23,7 @@ in {
     };
 
     stylix = {
-      image = "${themeDir}/wallpaper.png";
+      image = toPath "${themeDir}/wallpaper.png";
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
