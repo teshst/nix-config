@@ -22,7 +22,7 @@ in {
 
     stylix = {
       base16Scheme = "${inputs.base16-schemes}/share/themes/onedark.yaml";
-      image = ./wallpaper.png;
+      image = builtins.toPath ./wallpaper.png;
       homeManagerIntegration.autoImport = false;
       polarity = "dark";
 
