@@ -14,6 +14,17 @@ in {
 
     programs.dconf.enable = true;
 
+    fonts = {
+      packages = with pkgs; [
+        emacs-all-the-icons-fonts
+        dejavu-fonts
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      ];
+      fontconfig.enable = true;
+      fontDir.enable = true;
+      enableGhostScriptFonts = true;
+    };
+
     stylix = {
       image = "${themeDir}/wallpaper.png";
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
