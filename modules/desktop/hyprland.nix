@@ -4,6 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop.hyprland;
     configDir = config.dotfiles.configDir;
+    themeDir = config.dotfiles.themeDir;
 in {
 
   options.modules.desktop.hyprland = {
@@ -41,7 +42,7 @@ in {
       package = pkgs.swaylock-effects;
       settings = {
         ignore-empty-password = true;
-        #image = "${wallpaper}";
+        image = "${themeDir}/wallpaper.png";
         indicator = true;
         indicator-idle-visible = true;
         indicator-caps-lock = true;
