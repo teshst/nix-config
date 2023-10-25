@@ -31,12 +31,6 @@ in {
       wlr.enable = true;
     };
 
-    services = {
-      xserver = {
-        enable = false;
-      };
-    };
-
     home.programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
