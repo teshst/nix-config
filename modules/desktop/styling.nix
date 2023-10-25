@@ -1,6 +1,5 @@
 { config, options, lib, pkgs, inputs, ... }:
 
-with builtins;
 with lib;
 with lib.my;
 let cfg = config.modules.desktop.styling;
@@ -29,9 +28,25 @@ in {
       base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
-        serif = config.stylix.fonts.sansSerif;
+          serif = {
+              package = pkgs.nerdfonts;
+              name = "FiraCode Nerd Font Mono";
+          };
+          sansSerif = {
+              package = pkgs.nerdfonts;
+              name = "FiraCode Nerd Font Mono";
+          };
+          monospace = {
+              package = pkgs.nerdfonts;
+              name = "FiraCode Nerd Font Mono";
+          };
+          sizes = {
+              desktop = 12;
+              applications = 15;
+              terminal = 15;
+              popups = 12;
+          };
       };
     };
-
   };
 }
