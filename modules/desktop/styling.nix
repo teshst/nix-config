@@ -24,7 +24,8 @@ in {
 
     config.stylix = {
       image = (builtins.toPath "${themeDir}/wallpaper.png");
-      base16Scheme = "${config.base16-schemes}/onedark.yaml";
+      polarity = "dark";
+      base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
 
       fonts = {
           serif = {
