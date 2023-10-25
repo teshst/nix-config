@@ -94,7 +94,7 @@ in {
     home.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      systemdIntegration = true;
+      systemd.enable = true;
 			extraConfig = import "${configDir}/hypr/hyprland.conf";
     };
 
