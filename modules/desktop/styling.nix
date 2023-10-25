@@ -22,6 +22,7 @@ in {
 
     stylix = {
       image = ./wallpaper.png;
+      homeManagerIntegration.autoImport = false;
       polarity = "dark";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
 
