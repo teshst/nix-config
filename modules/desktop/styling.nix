@@ -23,7 +23,7 @@ in {
     stylix = {
       image = ./wallpaper.png;
       polarity = "dark";
-      base16Scheme = "${inputs.base16-schemes}/onedark.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
 
       fonts = {
           serif = {

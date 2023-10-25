@@ -35,23 +35,6 @@
     # Themeing
     stylix.url = "github:danth/stylix";
 
-    base16.url = "github:SenchoPens/base16.nix";
-
-    base16-schemes = {
-      url = "github:base16-project/base16-schemes";
-      flake = false;
-    };
-
-    base16-zathura = {
-      url = "github:haozeke/base16-zathura";
-      flake = false;
-    };
-
-    base16-vim = {
-      url = "github:base16-project/base16-vim";
-      flake = false;
-    };
-
     # Extras
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
     nixos-hardware.url = "github:teshst/nixos-hardware";
