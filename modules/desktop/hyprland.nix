@@ -21,6 +21,7 @@ in {
       pulsemixer
       polkit_gnome
       swaylock-effects
+      gnome.nautilus
     ];
 
     xdg.portal = {
