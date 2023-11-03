@@ -29,6 +29,7 @@ in {
             name = "Default";
             id = 0;
             search = {
+              force = true;
               default = "Google";
             };
             #bookmarks = import "${configDir}/firefox/bookmarks.html";
@@ -77,8 +78,6 @@ in {
               "extensions.pocket.oAuthConsumerKey" = "";
               "extensions.pocket.showHome" = false;
               "extensions.pocket.site" = "";
-
-
             };
           };
         };

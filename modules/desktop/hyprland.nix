@@ -22,6 +22,7 @@ in {
       polkit_gnome
       swaylock-effects
       gnome.nautilus
+      udiskie
     ];
 
     xdg.portal = {
